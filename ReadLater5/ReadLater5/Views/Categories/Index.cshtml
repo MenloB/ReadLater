@@ -1,0 +1,56 @@
+﻿@model IEnumerable<Entity.Category>
+
+@{
+    ViewBag.Title = "Index";
+}
+
+<h2>Index</h2>
+
+<p>
+    @Html.ActionLink("Create New", "Create")
+</p>
+
+<h1>Your favorite categories are: </h1>
+
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.Name)
+        </th>
+        <th></th>
+    </tr>
+
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.Name)
+            </td>
+            <td>
+                <a href="@Url.Action("Edit", "Categories", new { id = item.ID })" class="btn btn-primary">
+                    <span><strong>Edit</strong></span>
+                </a>
+                <a href="@Url.Action("Details", "Categories", new { id = item.ID})" class="btn btn-warning">
+                    <span><strong>Details</strong></span>
+                </a>
+                <a href="@Url.Action("Create", "Bookmarks", new { categoryId = item.ID })" class="btn btn-danger">
+                    <span><strong>Add Bookmark</strong></span>
+                </a>
+                <a href="@Url.Action("Delete", "Categories", new { id = item.ID })" class="btn btn-info">
+                    <span><strong>Delete</strong></span>
+                </a>
+            </td>
+            <td>
+                @{ if (item.Bookmarks.Count == 1)
+                                    {
+                                        <p>There is 1 bookmark registered</p>
+                                    }
+                                    else
+                                    {
+                                        <p>There are @item.Bookmarks.Count registered</p>
+                                    } }
+            </td>
+        </tr>
+    }
+
+</table>
